@@ -51,7 +51,7 @@ const getProductById = (req, res) => {
     product.getProductByCode(req.query.code, (data) => {
         if(data == null){
             res.status(400).json({
-                message:null,
+                message:'المنتج غير موجود',
                 data: data
             })
         }else {
