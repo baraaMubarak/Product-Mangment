@@ -21,12 +21,18 @@ const saveProduct = (req, res) => {
             message: 'the quantity is required'
         })
         return;
+    }else if (!req.body.expirationDate) {
+        res.status(400).json({
+            message: 'the expiration date is required'
+        })
+        return;
     }
     const product = new productModel({
         code: req.body.code,
         name: req.body.name,
         price: req.body.price,
         quantity: req.body.quantity,
+        expirationDate: req.body.expirationDate,
     })
     product.save();
     res.status(201).json({
@@ -43,10 +49,17 @@ const getProductById = (req, res) => {
     }
     const product = new productModel({})
     product.getProductByCode(req.query.code, (data) => {
-        res.status(201).json({
-            message:null,
-            data: data
-        })
+        if(data == null){
+            res.status(400).json({
+                message:null,
+                data: data
+            })
+        }else {
+            res.status(201).json({
+                message: null,
+                data: data
+            })
+        }
     })
 
 }
