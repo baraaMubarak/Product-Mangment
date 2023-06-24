@@ -38,6 +38,7 @@ const saveProduct = (req, res) => {
         price: req.body.price,
         quantity: req.body.quantity,
         expirationDate: req.body.expirationDate,
+        imageUrl: '/uploads/'+global.imageName,
     })
     product.save();
     res.status(201).json({
