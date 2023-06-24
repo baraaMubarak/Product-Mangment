@@ -1,4 +1,6 @@
 const {productModel} = require('../model')
+const multer = require('multer');
+
 const saveProduct = (req, res) => {
 
     if (!req.body.code) {
@@ -26,7 +28,10 @@ const saveProduct = (req, res) => {
             message: 'the expiration date is required'
         })
         return;
+    }else if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
     }
+
     const product = new productModel({
         code: req.body.code,
         name: req.body.name,
