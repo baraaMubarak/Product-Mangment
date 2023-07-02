@@ -12,9 +12,11 @@ const storage = multer.diskStorage({
         cb(null, global.imageName );
 
     },
+
 });
 const upload = multer({storage: storage});
 router.post('/add', upload.single('image'), productController.product.saveProduct)
 router.get('/getByCode', productController.product.getProductById)
+router.get('/getAll', productController.product.getAllProduct)
 
 module.exports = router

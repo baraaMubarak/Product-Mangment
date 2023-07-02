@@ -15,9 +15,9 @@ class Product {
         })
     }
 
-    getProductByCode(code, cb){
+    getAllProducts(cb){
         dbConnection('product', async (collection) => {
-            cb(await collection.findOne({code:code}))
+            cb(await collection.find().toArray())
         })
     }
 }
