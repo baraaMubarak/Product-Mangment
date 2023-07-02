@@ -1,6 +1,7 @@
 const {productModel} = require('../model')
 const multer = require('multer');
 const sharp = require("sharp");
+const {unlink} = require("fs");
 
 const saveProduct = (req, res) => {
 
@@ -48,15 +49,22 @@ const saveProduct = (req, res) => {
     sharp(req.file.path)
         .resize(300, 300) // Specify the desired width and height for the resized image
         .jpeg({ quality: 80 }) // Adjust the quality of the JPEG image (80 is just an example)
-        .toFile(global.imageName, (err, info) => {
+        .toFile('uploads/a'+global.imageName, (err, info) => {
             if (err) {
                 console.error(err);
-                res.status(500).json({ error: 'Failed to resize image' });
+                res.status(500).json({ error: err.message });
                 return;
             }
 
-            // Respond with success message or perform further actions
-            res.json({ message: 'Image uploaded and resized successfully' });
+            unlink(req.file.path, (err) => {
+                if (err) {
+                    console.error(err);
+                }
+
+                // Respond with success message or perform further actions
+                res.json({ message: 'success' });
+            });
+
         });
 }
 const getProductById = (req, res) => {
