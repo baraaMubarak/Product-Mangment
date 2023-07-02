@@ -20,5 +20,10 @@ class Product {
             cb(await collection.find().toArray())
         })
     }
+    getProductByCode(code, cb){
+        dbConnection('product', async (collection) => {
+            cb(await collection.findOne({code:code}))
+        })
+    }
 }
 module.exports = Product
