@@ -42,9 +42,9 @@ const saveProduct = (req, res) => {
         imageUrl: '/uploads/' + global.imageName,
     })
     product.save();
-    res.status(201).json({
-        message: 'success'
-    })
+    // res.status(201).json({
+    //     message: 'success'
+    // })
     sharp(req.file.path)
         .resize(300, 300) // Specify the desired width and height for the resized image
         .jpeg({ quality: 80 }) // Adjust the quality of the JPEG image (80 is just an example)
