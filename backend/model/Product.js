@@ -17,7 +17,7 @@ class Product {
 
     getAllProducts(cb){
         dbConnection('product', async (collection) => {
-            cb(await collection.find().toArray())
+            cb(await collection.find().sort({ expirationDate: 1 }).toArray())
         })
     }
     getProductByCode(code, cb){
